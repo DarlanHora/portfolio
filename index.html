@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfólio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topo">
+    <span class="logo">Darlan Hora</span>
+    <div class="menu-icone" onclick="abrirMenu()">☰</div>
+    <div class="menu" id="menu">
+      <a href="#sobre">Sobre</a>
+      <a href="#projeto">Projetos</a>
+      <a href="#contato">Contato</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Darlan Hora</h1>
+    <p>Estudante de Engenharia de Software.</p>
+    <a class="botao" href="#">Baixar currículo</a>
+  </div>
+
+  <div id="sobre" class="secao">
+    <h1>Sobre mim</h1>
+    <p>Estudo Engenharia de Software na UCSAL. Sei Java, HTML, CSS e JavaScript.</p>
+  </div>
+
+  <div id="projetos" class="secao cinza">
+    <h1>Projetos</h1>
+    <button class="filtro" onclick="filtrar('todos')">Todos</button>
+    <button class="filtro" onclick="filtrar('front')">Front-end</button>
+    <button class="filtro" onclick="filtrar('java')">Java</button>
+    <div class="cards">
+      <div class="card front">
+        <img src="assets/img/projeto-portfolio.svg">
+        <h3>Portfólio pessoal</h3>
+        <p>Meu portfólio feito em HTML, CSS e JS.</p>
+        <a href="#">Ver site</a>
+      </div>
+      <div class="card front">
+        <img src="assets/img/projeto-darlan-hora.svg">
+        <h3>Site Darlan Hora</h3>
+        <p>Site da minha marca de criação de sites.</p>
+        <a href="#">Ver site</a>
+      </div>
+      <div class="card java">
+        <img src="assets/img/projeto-java.svg">
+        <h3>Projeto Java</h3>
+        <p>Projeto da disciplina de POO.</p>
+        <a href="#">Ver código</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="contato" class="secao">
+    <h1>Contato</h1>
+    <form id="form">
+      <input id="nome" placeholder="Nome">
+      <input id="email" placeholder="E-mail">
+      <textarea id="mensagem" placeholder="Mensagem"></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
