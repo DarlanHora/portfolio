@@ -3,68 +3,232 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfólio</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Darlan Hora | Estudante de Engenharia de Software</title>
+  <meta name="description" content="Portfólio de Darlan Hora, estudante de Engenharia de Software na UCSAL em busca de estágio em desenvolvimento.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Marca que o JS está ativo. Sem JS, o menu fica sempre aberto e nada some. -->
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-  <div class="topo">
-    <span class="logo">Darlan Hora</span>
-    <div class="menu-icone" onclick="abrirMenu()">☰</div>
-    <div class="menu" id="menu">
-      <a href="#sobre">Sobre</a>
-      <a href="#projeto">Projetos</a>
-      <a href="#contato">Contato</a>
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="cabecalho">
+    <div class="container cabecalho__interno">
+      <a class="marca" href="#inicio" aria-label="Darlan Hora, voltar ao início">
+        <span class="marca__sigla" aria-hidden="true">DH</span>
+        <span class="marca__nome">Darlan Hora</span>
+      </a>
+
+      <nav aria-label="Navegação principal">
+        <button class="menu-botao" type="button" aria-expanded="false" aria-controls="menu-principal">
+          <span class="menu-botao__icone" aria-hidden="true"></span>
+          <span class="menu-botao__texto">Menu</span>
+        </button>
+        <ul class="menu" id="menu-principal">
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a href="assets/curriculo-darlan-hora.pdf" download>Currículo (PDF)</a></li>
+        </ul>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <div class="hero">
-    <h1>Darlan Hora</h1>
-    <p>Estudante de Engenharia de Software.</p>
-    <a class="botao" href="#">Baixar currículo</a>
-  </div>
+  <main id="conteudo" tabindex="-1">
+    <!-- INÍCIO -->
+    <section class="hero" id="inicio" aria-labelledby="titulo-inicio">
+      <div class="container hero__interno">
+        <p class="hero__rotulo">Engenharia de Software · UCSAL · 2º semestre</p>
+        <h1 id="titulo-inicio">Olá, eu sou o Darlan. Estou em busca do meu primeiro estágio em desenvolvimento.</h1>
+        <p class="hero__texto">
+          Estudo Engenharia de Software na Universidade Católica do Salvador e moro em Lauro de Freitas, Bahia.
+          Este portfólio reúne o que já construí até aqui, em Java e em front-end, e mostra como eu trabalho:
+          testando, corrigindo e explicando cada decisão.
+        </p>
+        <div class="hero__acoes">
+          <a class="botao botao--primario" href="#projetos">Ver projetos</a>
+          <a class="botao botao--secundario" href="assets/curriculo-darlan-hora.pdf" download>Baixar currículo (PDF)</a>
+          <a class="botao botao--link" href="#contato">Falar comigo</a>
+        </div>
+      </div>
+    </section>
 
-  <div id="sobre" class="secao">
-    <h1>Sobre mim</h1>
-    <p>Estudo Engenharia de Software na UCSAL. Sei Java, HTML, CSS e JavaScript.</p>
-  </div>
+    <!-- SOBRE -->
+    <section class="secao" id="sobre" aria-labelledby="titulo-sobre">
+      <div class="container">
+        <h2 id="titulo-sobre">Sobre mim</h2>
 
-  <div id="projetos" class="secao cinza">
-    <h1>Projetos</h1>
-    <button class="filtro" onclick="filtrar('todos')">Todos</button>
-    <button class="filtro" onclick="filtrar('front')">Front-end</button>
-    <button class="filtro" onclick="filtrar('java')">Java</button>
-    <div class="cards">
-      <div class="card front">
-        <img src="assets/img/projeto-portfolio.svg">
-        <h3>Portfólio pessoal</h3>
-        <p>Meu portfólio feito em HTML, CSS e JS.</p>
-        <a href="#">Ver site</a>
+        <div class="sobre__grade">
+          <div>
+            <h3>Trajetória</h3>
+            <ol class="linha-tempo">
+              <li>
+                <span class="linha-tempo__quando">Concluído</span>
+                <p><strong>Ensino médio</strong> no Colégio Pirâmide.</p>
+              </li>
+              <li>
+                <span class="linha-tempo__quando">2026</span>
+                <p><strong>Início de Engenharia de Software</strong> na UCSAL, com conclusão prevista para 2030.</p>
+              </li>
+              <li>
+                <span class="linha-tempo__quando">2026</span>
+                <p><strong>Cursos complementares:</strong> Python 3 Mundo 1 (Curso em Vídeo) e Imersão Agentes de IA (ONE Alura).</p>
+              </li>
+              <li>
+                <span class="linha-tempo__quando">2026.2</span>
+                <p><strong>Programação Front-End:</strong> construção e auditoria deste portfólio.</p>
+              </li>
+            </ol>
+          </div>
+
+          <div>
+            <h3>Habilidades e onde usei</h3>
+            <ul class="habilidades">
+              <li>
+                <h4>Java e Orientação a Objetos</h4>
+                <p>Usei nas disciplinas de Lógica de Programação e Algoritmos (LPA) e de Programação Orientada a Objetos, modelando classes, herança e encapsulamento.</p>
+              </li>
+              <li>
+                <h4>HTML e CSS</h4>
+                <p>Usei na disciplina de Front-End para estruturar páginas semânticas e layouts responsivos, como este site.</p>
+              </li>
+              <li>
+                <h4>JavaScript</h4>
+                <p>Usei neste portfólio para o filtro de projetos, o menu móvel e a validação do formulário de contato.</p>
+              </li>
+              <li>
+                <h4>Python e IA</h4>
+                <p>Estudei Python básico e agentes de IA em cursos livres. Ainda não tenho projeto publicado nessas áreas.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="card front">
-        <img src="assets/img/projeto-darlan-hora.svg">
-        <h3>Site Darlan Hora</h3>
-        <p>Site da minha marca de criação de sites.</p>
-        <a href="#">Ver site</a>
+    </section>
+
+    <!-- PROJETOS -->
+    <section class="secao secao--suave" id="projetos" aria-labelledby="titulo-projetos">
+      <div class="container">
+        <h2 id="titulo-projetos">Projetos</h2>
+        <p>Filtre por tecnologia. Projetos feitos em aula estão identificados.</p>
+
+        <!-- Os botões são gerados em js/filtro-projetos.js a partir da lista FILTROS -->
+        <div class="filtro" role="group" aria-label="Filtrar projetos por tecnologia" id="filtro-projetos"></div>
+
+        <p class="filtro__resultado" id="resultado-filtro" role="status" aria-live="polite"></p>
+
+        <ul class="cards" id="lista-projetos"></ul>
+
+        <div class="vazio" id="estado-vazio" hidden>
+          <p><strong>Nenhum projeto encontrado com essa tecnologia.</strong> Ainda estou estudando essa área. Veja os outros projetos:</p>
+          <button class="botao botao--secundario" type="button" id="limpar-filtro">Mostrar todos os projetos</button>
+        </div>
+
+        <noscript><p>Ative o JavaScript para ver a lista de projetos, ou acesse <a href="https://github.com/DarlanHora">meu GitHub</a>.</p></noscript>
       </div>
-      <div class="card java">
-        <img src="assets/img/projeto-java.svg">
-        <h3>Projeto Java</h3>
-        <p>Projeto da disciplina de POO.</p>
-        <a href="#">Ver código</a>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="secao" id="contato" aria-labelledby="titulo-contato">
+      <div class="container contato__grade">
+        <div>
+          <h2 id="titulo-contato">Contato</h2>
+          <p>A forma mais rápida de falar comigo é por e-mail ou LinkedIn:</p>
+          <ul class="canais">
+            <li><a href="mailto:darlanhora37@gmail.com">darlanhora37@gmail.com</a></li>
+            <li><a href="https://www.linkedin.com/in/darlanhora/" target="_blank" rel="noopener">LinkedIn: linkedin.com/in/darlanhora<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+            <li><a href="https://github.com/DarlanHora" target="_blank" rel="noopener">GitHub: github.com/DarlanHora<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+          </ul>
+          <p class="aviso-demo">
+            <strong>Aviso:</strong> o formulário ao lado é uma demonstração acadêmica.
+            Nenhum e-mail é enviado por ele. Para falar comigo de verdade, use os canais acima.
+          </p>
+        </div>
+
+        <!-- novalidate: a validação nativa continua sendo usada (validity),
+             mas quem decide quando e como mostrar os erros é o js/formulario.js -->
+        <form class="formulario" id="form-contato" novalidate>
+          <div class="resumo-erros" id="resumo-erros" tabindex="-1" hidden>
+            <h3 id="resumo-titulo">Corrija os campos abaixo para continuar:</h3>
+            <ul id="resumo-lista"></ul>
+          </div>
+
+          <div class="campo">
+            <label for="nome">Nome</label>
+            <p class="campo__dica" id="nome-dica">De 3 a 80 caracteres. Acentos, hífen e apóstrofo são aceitos.</p>
+            <input type="text" id="nome" name="nome" autocomplete="name" required minlength="3" maxlength="80" aria-describedby="nome-dica nome-erro">
+            <p class="campo__erro" id="nome-erro" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="email">E-mail</label>
+            <p class="campo__dica" id="email-dica">Use um endereço no formato nome@dominio.com.</p>
+            <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="email-dica email-erro">
+            <p class="campo__erro" id="email-erro" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="motivo">Motivo do contato</label>
+            <p class="campo__dica" id="motivo-dica">Escolha uma opção.</p>
+            <select id="motivo" name="motivo" required aria-describedby="motivo-dica motivo-erro">
+              <option value="">Selecione</option>
+              <option value="oportunidade">Oportunidade profissional</option>
+              <option value="freelance">Projeto freelance</option>
+              <option value="outro">Outro</option>
+            </select>
+            <p class="campo__erro" id="motivo-erro" hidden></p>
+          </div>
+
+          <!-- Só aparece com "Outro". Fora disso fica hidden + disabled:
+               não valida e não entra no FormData. -->
+          <div class="campo" id="campo-assunto" hidden>
+            <label for="assunto">Assunto</label>
+            <p class="campo__dica" id="assunto-dica">De 5 a 100 caracteres.</p>
+            <input type="text" id="assunto" name="assunto" minlength="5" maxlength="100" disabled aria-describedby="assunto-dica assunto-erro">
+            <p class="campo__erro" id="assunto-erro" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="mensagem">Mensagem</label>
+            <p class="campo__dica" id="mensagem-dica">De 30 a 1000 caracteres. Espaços no início e no fim não contam.</p>
+            <textarea id="mensagem" name="mensagem" rows="6" required minlength="30" maxlength="1000" aria-describedby="mensagem-dica mensagem-contador mensagem-erro"></textarea>
+            <p class="campo__contador" id="mensagem-contador">0 de 1000 caracteres (mínimo 30)</p>
+            <p class="campo__erro" id="mensagem-erro" hidden></p>
+          </div>
+
+          <fieldset class="modo-teste">
+            <legend>Modo de teste da demonstração</legend>
+            <p class="campo__dica">Escolha o resultado que a simulação deve retornar.</p>
+            <label><input type="radio" name="resultado-simulado" value="sucesso" checked> Simular sucesso</label>
+            <label><input type="radio" name="resultado-simulado" value="falha"> Simular falha</label>
+          </fieldset>
+
+          <button class="botao botao--primario" type="submit" id="botao-enviar">Enviar mensagem</button>
+
+          <!-- Região de status: lida por leitores de tela sem roubar o foco -->
+          <p class="status" id="status-envio" role="status" aria-live="polite"></p>
+
+          <details class="dados-processados">
+            <summary>Ver dados processados no último envio simulado</summary>
+            <pre id="dados-processados">Nenhum envio concluído ainda.</pre>
+          </details>
+        </form>
       </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <p>Darlan Luiz Santos da Hora · Portfólio da disciplina de Programação Front-End · UCSAL, 2026</p>
+      <p><a href="#inicio">Voltar ao topo</a></p>
     </div>
-  </div>
+  </footer>
 
-  <div id="contato" class="secao">
-    <h1>Contato</h1>
-    <form id="form">
-      <input id="nome" placeholder="Nome">
-      <input id="email" placeholder="E-mail">
-      <textarea id="mensagem" placeholder="Mensagem"></textarea>
-      <button type="submit">Enviar</button>
-    </form>
-  </div>
-
-  <script src="script.js"></script>
+  <!-- Ordem importa: os dados vêm antes de quem usa os dados -->
+  <script src="js/dados-projetos.js" defer></script>
+  <script src="js/menu.js" defer></script>
+  <script src="js/filtro-projetos.js" defer></script>
+  <script src="js/formulario.js" defer></script>
 </body>
 </html>
