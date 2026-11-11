@@ -37,18 +37,17 @@ const PROJETOS = [
     }
   },
   {
-    id: 'poo-java',
-    // TODO (Darlan): troque pelo seu projeto real de POO. Mantenha a estrutura.
-    titulo: 'Projeto de POO em Java',
+    id: 'controle-tv',
+    titulo: 'Controle de televisão em Java',
     origem: 'Projeto de aula · Programação Orientada a Objetos, UCSAL',
-    problema: 'PREENCHER: qual problema o programa resolve.',
-    publico: 'PREENCHER: quem usaria o programa.',
-    contribuicao: 'PREENCHER: o que você fez (classes, regras, telas, testes).',
+    problema: 'Representar em código o funcionamento de um controle de televisão, aplicando os conceitos de classe, objeto e herança.',
+    publico: 'Exercício acadêmico, feito para praticar Orientação a Objetos.',
+    contribuicao: 'Criei a classe TV e a classe TVSmart, que herda de TV e reaproveita o comportamento da TV comum.',
     tecnologias: ['Java'],
     imagem: 'assets/img/projeto-java.svg',
-    textoAlternativo: 'Ilustração de um diagrama de classes em Java.',
+    textoAlternativo: 'Ilustração de um diagrama de classes, com uma classe principal ligada às classes que herdam dela.',
     links: {
-      codigo: '', // TODO: link do repositório no GitHub
+      codigo: '', // TODO: link do repositório no GitHub, quando publicar
       site: ''
     }
   }
