@@ -6,6 +6,7 @@
      azul-900 sobre branco 13.8:1 · azul-600 sobre branco 6.7:1
      coral-700 sobre branco 5.9:1 · coral-400 sobre azul-900 5.4:1
    O coral claro (#FF7A66) nunca é usado como texto sobre branco (2.5:1).
+   Animações e vídeo só rodam com prefers-reduced-motion: no-preference.
    ========================================================== */
 
 :root {
@@ -27,6 +28,12 @@
   --raio: 12px;
   --espaco: clamp(1rem, 4vw, 2rem);
   --largura-max: 72rem;
+
+  /* Visual do topo (inspirado no template "Velorah") */
+  --fonte-titulo: "Instrument Serif", Georgia, serif;
+  --fonte-texto: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --azul-noite: #002B42;   /* hsl(201 100% 13%) */
+  --cinza-suave: #A6A6AD;  /* hsl(240 4% 66%), 7.4:1 sobre o azul-noite */
 }
 
 *,
@@ -37,7 +44,7 @@ html { scroll-padding-top: 5rem; } /* âncoras não ficam escondidas atrás do c
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--fonte-texto);
   font-size: 1rem;
   line-height: 1.6;
   color: var(--texto);
@@ -47,8 +54,9 @@ body {
 img { max-width: 100%; height: auto; display: block; }
 
 h1, h2, h3, h4 { line-height: 1.25; color: var(--azul-900); margin: 0 0 .75rem; }
-h1 { font-size: clamp(1.75rem, 5vw, 2.75rem); }
-h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+h1, h2 { font-family: var(--fonte-titulo); font-weight: 400; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: .95; letter-spacing: -0.03em; }
+h2 { font-size: clamp(2.25rem, 5vw, 3.25rem); }
 h3 { font-size: 1.2rem; }
 h4 { font-size: 1rem; margin-bottom: .25rem; }
 p { margin: 0 0 1rem; }
@@ -120,8 +128,11 @@ main:focus { outline: none; } /* main recebe foco pelo "pular link", sem moldura
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--branco);
-  border-bottom: 1px solid var(--borda);
+  background: rgba(0, 43, 66, .95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+  --foco: var(--coral-400);
 }
 .cabecalho__interno {
   display: flex;
@@ -135,8 +146,10 @@ main:focus { outline: none; } /* main recebe foco pelo "pular link", sem moldura
   display: inline-flex;
   align-items: center;
   gap: .6rem;
-  font-weight: 700;
-  color: var(--azul-900);
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--branco);
   text-decoration: none;
 }
 .marca__sigla {
@@ -144,9 +157,11 @@ main:focus { outline: none; } /* main recebe foco pelo "pular link", sem moldura
   place-items: center;
   width: 2.5rem; height: 2.5rem;
   border-radius: 50%;
-  background: var(--azul-900);
-  color: var(--coral-400);
-  font-size: .95rem;
+  background: var(--coral-400);
+  color: var(--azul-noite);
+  font-family: var(--fonte-texto);
+  font-weight: 700;
+  font-size: .9rem;
 }
 
 .menu-botao {
@@ -155,10 +170,10 @@ main:focus { outline: none; } /* main recebe foco pelo "pular link", sem moldura
   gap: .5rem;
   min-height: 44px;
   padding: .5rem .9rem;
-  border: 2px solid var(--azul-900);
+  border: 1px solid rgba(255, 255, 255, .5);
   border-radius: 999px;
-  background: var(--branco);
-  color: var(--azul-900);
+  background: transparent;
+  color: var(--branco);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -188,11 +203,13 @@ main:focus { outline: none; } /* main recebe foco pelo "pular link", sem moldura
   display: inline-block;
   padding: .5rem .25rem;
   min-height: 44px;
-  color: var(--azul-900);
-  font-weight: 600;
+  color: var(--cinza-suave);
+  font-size: .95rem;
+  font-weight: 500;
   text-decoration: none;
+  transition: color .15s ease;
 }
-.menu a:hover { text-decoration: underline; }
+.menu a:hover { color: var(--branco); }
 
 /* Tela estreita com JS: menu recolhível controlado pelo aria-expanded */
 @media (max-width: 47.99em) {
@@ -206,36 +223,124 @@ main:focus { outline: none; } /* main recebe foco pelo "pular link", sem moldura
     left: 0;
     right: 0;
     padding: .5rem var(--espaco) 1rem;
-    background: var(--branco);
-    border-bottom: 1px solid var(--borda);
-    box-shadow: 0 8px 16px rgba(15, 42, 95, .12);
+    background: var(--azul-noite);
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .3);
   }
   .js .menu-botao[aria-expanded="true"] + .menu { display: flex; }
 }
 
-/* ---------------- Hero ---------------- */
+/* ---------------- Hero com vídeo ---------------- */
 
 .hero {
-  background: var(--azul-900);
+  position: relative;
+  isolation: isolate;          /* cria uma camada própria para o z-index do vídeo */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: calc(100svh - 4rem); /* ocupa a tela, descontando o cabeçalho */
+  padding-block: clamp(4rem, 12vw, 7rem);
+  background: var(--azul-noite);   /* aparece se o vídeo não carregar */
   color: var(--branco);
-  padding-block: clamp(3rem, 10vw, 6rem);
+  text-align: center;
   --foco: var(--coral-400);
 }
-.hero h1 { color: var(--branco); max-width: 40ch; }
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;                    /* só aparece quando começa a tocar */
+  transition: opacity .8s ease;
+}
+.hero__video--visivel { opacity: 1; }
+/* Véu escuro leve: o vídeo muda de cor e o texto precisa manter contraste */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* mais escuro embaixo, onde o vídeo tem as áreas mais claras */
+  background: linear-gradient(180deg, rgba(0, 20, 32, .45) 0%, rgba(0, 20, 32, .55) 50%, rgba(0, 20, 32, .8) 100%);
+}
+
+.hero__interno { display: flex; flex-direction: column; align-items: center; }
+.hero h1 { color: var(--branco); max-width: 16ch; margin-bottom: 0; }
+.hero h1 em { font-style: normal; color: var(--cinza-suave); }
 .hero__rotulo {
   display: inline-block;
-  padding: .25rem .75rem;
+  margin-bottom: 1.5rem;
+  padding: .3rem .9rem;
   border-radius: 999px;
   background: var(--coral-400);
-  color: var(--azul-900);
-  font-weight: 700;
-  font-size: .9rem;
+  color: var(--azul-noite);
+  font-weight: 600;
+  font-size: .85rem;
 }
-.hero__texto { max-width: 62ch; font-size: 1.1rem; }
-.hero__acoes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
-.hero .botao--secundario { color: var(--branco); border-color: var(--branco); }
-.hero .botao--secundario:hover { background: rgba(255, 255, 255, .12); }
+.hero__texto {
+  max-width: 42rem;
+  margin: 2rem 0 0;
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  line-height: 1.7;
+  color: #D4D8DF;                /* um pouco mais claro que o cinza do template, para ler sobre o vídeo */
+}
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem 1rem;
+  margin-top: 2.5rem;
+}
+.hero .botao { color: var(--branco); }
 .hero .botao--link { color: var(--branco); }
+.botao--grande { padding: 1rem 2.75rem; font-size: 1rem; }
+
+/* .hero__pausa.vidro: precisa vencer o position: relative da classe .vidro */
+.hero__pausa.vidro {
+  position: absolute;
+  white-space: nowrap;
+  right: 1rem;
+  bottom: 1rem;
+  min-height: 44px;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  color: var(--branco);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+/* Efeito "vidro líquido" do template, em CSS puro */
+.vidro {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .06);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .1);
+}
+.vidro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, .45) 0%, rgba(255, 255, 255, .15) 20%,
+    rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, .15) 80%, rgba(255, 255, 255, .45) 100%);
+  /* a máscara recorta o miolo e deixa só a borda brilhante */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.vidro:hover { background: rgba(255, 255, 255, .12); }
 
 /* ---------------- Seções ---------------- */
 
@@ -437,5 +542,15 @@ textarea:focus-visible { border-color: var(--azul-600); }
 /* Rolagem suave só para quem não pediu movimento reduzido */
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
-  .botao, .filtro__botao { transition: background-color .15s ease; }
+  .botao, .filtro__botao { transition: background-color .15s ease, transform .15s ease; }
+  .vidro:hover { transform: scale(1.03); }
+
+  /* Entrada do topo: sobe e aparece, em sequência */
+  @keyframes subir-e-aparecer {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animar-entrada { animation: subir-e-aparecer .8s ease-out both; }
+  .animar-entrada--atraso-1 { animation-delay: .2s; }
+  .animar-entrada--atraso-2 { animation-delay: .4s; }
 }

@@ -11,7 +11,7 @@ const PROJETOS = [
     titulo: 'Portfólio pessoal',
     origem: 'Projeto de aula · Programação Front-End, UCSAL',
     problema: 'Eu não tinha um lugar único para mostrar o que sei fazer e como entrar em contato comigo.',
-    publico: 'Recrutadores de estágio e professores.',
+    publico: 'Professores e colegas da disciplina.',
     contribuicao: 'Desenvolvimento individual completo: estrutura, layout responsivo, filtro de projetos, formulário com validação e testes documentados.',
     tecnologias: ['HTML', 'CSS', 'JavaScript'],
     imagem: 'assets/img/projeto-portfolio.svg',
