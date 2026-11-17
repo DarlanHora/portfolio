@@ -42,14 +42,6 @@
   <main id="conteudo" tabindex="-1">
     <!-- INÍCIO -->
     <section class="hero" id="inicio" aria-labelledby="titulo-inicio">
-      <!-- Vídeo decorativo: aria-hidden, sem som e sem controles próprios.
-           Não tem autoplay no HTML: o js/video-fundo.js só dá play se a pessoa
-           não pediu movimento reduzido. Se o vídeo não carregar, fica o
-           fundo azul do .hero, e o texto continua legível. -->
-      <video class="hero__video" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4">
-      </video>
-
       <div class="container hero__interno">
         <p class="hero__rotulo animar-entrada">Engenharia de Software · UCSAL · 2º semestre</p>
         <h1 id="titulo-inicio" class="animar-entrada">
@@ -67,8 +59,6 @@
         </div>
       </div>
 
-      <!-- Todo movimento com mais de 5 segundos precisa poder ser pausado (WCAG 2.2.2) -->
-      <button class="hero__pausa vidro" type="button" id="pausar-video" hidden>Pausar vídeo</button>
     </section>
 
     <!-- SOBRE -->
@@ -243,7 +233,6 @@
   </footer>
 
   <!-- Ordem importa: os dados vêm antes de quem usa os dados -->
-  <script src="js/video-fundo.js" defer></script>
   <script src="js/dados-projetos.js" defer></script>
   <script src="js/menu.js" defer></script>
   <script src="js/filtro-projetos.js" defer></script>
