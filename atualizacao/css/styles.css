@@ -1,0 +1,556 @@
+/* ==========================================================
+   Portfólio Darlan Hora
+   Mobile first: o estilo base é para telas estreitas e as
+   media queries só acrescentam o que muda em telas maiores.
+   Contrastes conferidos (WCAG AA):
+     azul-900 sobre branco 13.8:1 · azul-600 sobre branco 6.7:1
+     coral-700 sobre branco 5.9:1 · coral-400 sobre azul-900 5.4:1
+   O coral claro (#FF7A66) nunca é usado como texto sobre branco (2.5:1).
+   Animações e vídeo só rodam com prefers-reduced-motion: no-preference.
+   ========================================================== */
+
+:root {
+  --azul-900: #0F2A5F;
+  --azul-600: #1D4ED8;
+  --azul-100: #E6EDFB;
+  --coral-400: #FF7A66;
+  --coral-100: #FFE3DE;
+  --coral-700: #B23A26;
+  --branco: #FFFFFF;
+  --fundo-suave: #F4F7FC;
+  --texto: #1A2233;
+  --texto-suave: #4A5568;
+  --borda: #C9D3E6;
+  --sucesso: #166534;
+  --sucesso-fundo: #E7F6EC;
+
+  --foco: var(--azul-600);
+  --raio: 12px;
+  --espaco: clamp(1rem, 4vw, 2rem);
+  --largura-max: 72rem;
+
+  /* Visual do topo (inspirado no template "Velorah") */
+  --fonte-titulo: "Instrument Serif", Georgia, serif;
+  --fonte-texto: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --azul-noite: #002B42;   /* hsl(201 100% 13%) */
+  --cinza-suave: #A6A6AD;  /* hsl(240 4% 66%), 7.4:1 sobre o azul-noite */
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-padding-top: 5rem; } /* âncoras não ficam escondidas atrás do cabeçalho fixo */
+
+body {
+  margin: 0;
+  font-family: var(--fonte-texto);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--texto);
+  background: var(--branco);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3, h4 { line-height: 1.25; color: var(--azul-900); margin: 0 0 .75rem; }
+h1, h2 { font-family: var(--fonte-titulo); font-weight: 400; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: .95; letter-spacing: -0.03em; }
+h2 { font-size: clamp(2.25rem, 5vw, 3.25rem); }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 1rem; margin-bottom: .25rem; }
+p { margin: 0 0 1rem; }
+
+a { color: var(--azul-600); text-underline-offset: .2em; }
+a:hover { color: var(--azul-900); }
+
+/* Foco sempre visível, só para teclado */
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+main:focus { outline: none; } /* main recebe foco pelo "pular link", sem moldura gigante */
+
+.container {
+  width: 100%;
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding-inline: var(--espaco);
+}
+
+.visualmente-oculto {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.pular-link {
+  position: absolute;
+  left: 1rem;
+  top: -10rem;
+  z-index: 100;
+  padding: .75rem 1rem;
+  background: var(--azul-900);
+  color: var(--branco);
+  border-radius: var(--raio);
+}
+.pular-link:focus { top: 1rem; --foco: var(--coral-400); }
+
+/* ---------------- Botões ---------------- */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* alvo de toque confortável */
+  padding: .65rem 1.25rem;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+}
+.botao--primario { background: var(--coral-400); color: var(--azul-900); }
+.botao--primario:hover { background: var(--coral-100); color: var(--azul-900); }
+.botao--secundario { background: transparent; color: var(--azul-600); border-color: var(--azul-600); }
+.botao--secundario:hover { background: var(--azul-100); }
+.botao--link { background: transparent; color: inherit; text-decoration: underline; padding-inline: .5rem; }
+.botao[aria-disabled="true"] { opacity: .7; cursor: progress; }
+
+/* ---------------- Cabeçalho e menu ---------------- */
+
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(0, 43, 66, .95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+  --foco: var(--coral-400);
+}
+.cabecalho__interno {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding-block: .6rem;
+}
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--branco);
+  text-decoration: none;
+}
+.marca__sigla {
+  display: grid;
+  place-items: center;
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 50%;
+  background: var(--coral-400);
+  color: var(--azul-noite);
+  font-family: var(--fonte-texto);
+  font-weight: 700;
+  font-size: .9rem;
+}
+
+.menu-botao {
+  display: none; /* só aparece quando o JS está ativo, em tela estreita */
+  align-items: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .5rem .9rem;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--branco);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.menu-botao__icone,
+.menu-botao__icone::before,
+.menu-botao__icone::after {
+  display: block;
+  width: 1.1rem; height: 2px;
+  background: currentColor;
+  position: relative;
+}
+.menu-botao__icone::before,
+.menu-botao__icone::after { content: ""; position: absolute; }
+.menu-botao__icone::before { top: -6px; }
+.menu-botao__icone::after { top: 6px; }
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem 1rem;
+}
+.menu a {
+  display: inline-block;
+  padding: .5rem .25rem;
+  min-height: 44px;
+  color: var(--cinza-suave);
+  font-size: .95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+.menu a:hover { color: var(--branco); }
+
+/* Tela estreita com JS: menu recolhível controlado pelo aria-expanded */
+@media (max-width: 47.99em) {
+  .js .menu-botao { display: inline-flex; }
+  .js .menu {
+    display: none;
+    flex-direction: column;
+    /* painel logo abaixo do cabeçalho (que é sticky, logo serve de referência) */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: .5rem var(--espaco) 1rem;
+    background: var(--azul-noite);
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .3);
+  }
+  .js .menu-botao[aria-expanded="true"] + .menu { display: flex; }
+}
+
+/* ---------------- Hero com vídeo ---------------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;          /* cria uma camada própria para o z-index do vídeo */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: calc(100svh - 4rem); /* ocupa a tela, descontando o cabeçalho */
+  padding-block: clamp(4rem, 12vw, 7rem);
+  background: var(--azul-noite);   /* aparece se o vídeo não carregar */
+  color: var(--branco);
+  text-align: center;
+  --foco: var(--coral-400);
+}
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;                    /* só aparece quando começa a tocar */
+  transition: opacity .8s ease;
+}
+.hero__video--visivel { opacity: 1; }
+/* Véu escuro leve: o vídeo muda de cor e o texto precisa manter contraste */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* mais escuro embaixo, onde o vídeo tem as áreas mais claras */
+  background: linear-gradient(180deg, rgba(0, 20, 32, .45) 0%, rgba(0, 20, 32, .55) 50%, rgba(0, 20, 32, .8) 100%);
+}
+
+.hero__interno { display: flex; flex-direction: column; align-items: center; }
+.hero h1 { color: var(--branco); max-width: 16ch; margin-bottom: 0; }
+.hero h1 em { font-style: normal; color: var(--cinza-suave); }
+.hero__rotulo {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: .3rem .9rem;
+  border-radius: 999px;
+  background: var(--coral-400);
+  color: var(--azul-noite);
+  font-weight: 600;
+  font-size: .85rem;
+}
+.hero__texto {
+  max-width: 42rem;
+  margin: 2rem 0 0;
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  line-height: 1.7;
+  color: #D4D8DF;                /* um pouco mais claro que o cinza do template, para ler sobre o vídeo */
+}
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem 1rem;
+  margin-top: 2.5rem;
+}
+.hero .botao { color: var(--branco); }
+.hero .botao--link { color: var(--branco); }
+.botao--grande { padding: 1rem 2.75rem; font-size: 1rem; }
+
+/* .hero__pausa.vidro: precisa vencer o position: relative da classe .vidro */
+.hero__pausa.vidro {
+  position: absolute;
+  white-space: nowrap;
+  right: 1rem;
+  bottom: 1rem;
+  min-height: 44px;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  color: var(--branco);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+/* Efeito "vidro líquido" do template, em CSS puro */
+.vidro {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .06);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .1);
+}
+.vidro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, .45) 0%, rgba(255, 255, 255, .15) 20%,
+    rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, .15) 80%, rgba(255, 255, 255, .45) 100%);
+  /* a máscara recorta o miolo e deixa só a borda brilhante */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.vidro:hover { background: rgba(255, 255, 255, .12); }
+
+/* ---------------- Seções ---------------- */
+
+.secao { padding-block: clamp(3rem, 8vw, 5rem); }
+.secao--suave { background: var(--fundo-suave); }
+
+.sobre__grade { display: grid; gap: 2rem; }
+
+.linha-tempo { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--coral-400); }
+.linha-tempo li { position: relative; padding: 0 0 1rem 1.25rem; }
+.linha-tempo li::before {
+  content: "";
+  position: absolute;
+  left: -9px; top: .45rem;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--branco);
+  border: 3px solid var(--azul-900);
+}
+.linha-tempo__quando { font-size: .9rem; font-weight: 700; color: var(--coral-700); }
+.linha-tempo p { margin: 0; }
+
+.habilidades { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.habilidades li {
+  padding: 1rem;
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--azul-600);
+  border-radius: var(--raio);
+}
+.habilidades p { margin: 0; color: var(--texto-suave); }
+
+/* ---------------- Filtro e cards ---------------- */
+
+.filtro { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0 1rem; }
+.filtro__botao {
+  min-height: 44px;
+  padding: .45rem 1rem;
+  border: 2px solid var(--azul-600);
+  border-radius: 999px;
+  background: var(--branco);
+  color: var(--azul-600);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.filtro__botao:hover { background: var(--azul-100); }
+/* Estado ativo: cor + marcação "✓", para não depender só da cor */
+.filtro__botao[aria-pressed="true"] { background: var(--azul-900); border-color: var(--azul-900); color: var(--branco); }
+.filtro__botao[aria-pressed="true"]::before { content: "✓ "; }
+
+.filtro__resultado { font-weight: 600; color: var(--texto-suave); }
+
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  /* min(100%, 18rem): em 360px o card nunca força rolagem horizontal */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: 1.5rem;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* deixa o texto quebrar dentro do grid */
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+}
+.card[hidden] { display: none; }
+.card__imagem { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--azul-100); }
+.card__corpo { display: flex; flex-direction: column; flex: 1; padding: 1.25rem; overflow-wrap: anywhere; }
+.card__titulo { margin-bottom: .25rem; }
+.card__origem { font-size: .9rem; font-weight: 600; color: var(--coral-700); }
+.card__info { font-size: .95rem; margin-bottom: .6rem; }
+.card__tags { list-style: none; margin: .5rem 0 1rem; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+.tag { padding: .15rem .6rem; border-radius: 999px; background: var(--azul-100); color: var(--azul-900); font-size: .85rem; font-weight: 600; }
+.card__links { margin-top: auto; display: flex; flex-wrap: wrap; gap: .75rem; }
+.card__link { font-weight: 600; }
+.card__sem-link { margin: 0; font-size: .9rem; color: var(--texto-suave); font-style: italic; }
+
+.vazio {
+  padding: 1.5rem;
+  border: 2px dashed var(--borda);
+  border-radius: var(--raio);
+  background: var(--branco);
+}
+
+/* ---------------- Contato e formulário ---------------- */
+
+.contato__grade { display: grid; gap: 2rem; }
+.canais { padding-left: 1.2rem; overflow-wrap: anywhere; }
+.canais li { margin-bottom: .4rem; }
+.aviso-demo {
+  padding: 1rem;
+  border-left: 4px solid var(--coral-400);
+  background: var(--coral-100);
+  border-radius: 0 var(--raio) var(--raio) 0;
+}
+
+.formulario {
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--fundo-suave);
+  min-width: 0;
+}
+.campo { margin-bottom: 1.25rem; }
+.campo[hidden] { display: none; }
+.campo label { display: block; font-weight: 700; color: var(--azul-900); }
+.campo__dica,
+.campo__contador { margin: 0 0 .35rem; font-size: .9rem; color: var(--texto-suave); }
+.campo__contador { margin: .35rem 0 0; }
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: .6rem .75rem;
+  border: 2px solid var(--borda);
+  border-radius: 8px;
+  background: var(--branco);
+  color: var(--texto);
+  font: inherit;
+}
+textarea { resize: vertical; }
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible { border-color: var(--azul-600); }
+
+[aria-invalid="true"] { border-color: var(--coral-700); border-width: 3px; }
+.campo__erro {
+  margin: .35rem 0 0;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--coral-700);
+}
+
+.resumo-erros {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--coral-700);
+  border-radius: var(--raio);
+  background: var(--branco);
+}
+.resumo-erros h3 { color: var(--coral-700); font-size: 1rem; }
+.resumo-erros ul { margin: 0; padding-left: 1.2rem; }
+.resumo-erros a { color: var(--coral-700); }
+
+.modo-teste {
+  margin: 0 0 1.25rem;
+  padding: .75rem 1rem;
+  border: 1px dashed var(--borda);
+  border-radius: 8px;
+}
+.modo-teste legend { font-weight: 700; color: var(--azul-900); padding-inline: .25rem; }
+.modo-teste label { display: inline-flex; align-items: center; gap: .4rem; margin-right: 1rem; min-height: 44px; }
+
+.status { margin: 1rem 0 0; font-weight: 600; }
+.status:empty { display: none; }
+.formulario[data-estado="processando"] .status { color: var(--azul-900); }
+.formulario[data-estado="sucesso"] .status { color: var(--sucesso); padding: .75rem; background: var(--sucesso-fundo); border-radius: 8px; }
+.formulario[data-estado="falha"] .status,
+.formulario[data-estado="erro"] .status { color: var(--coral-700); padding: .75rem; background: var(--branco); border: 2px solid var(--coral-700); border-radius: 8px; }
+
+.dados-processados { margin-top: 1rem; font-size: .9rem; }
+.dados-processados summary { cursor: pointer; color: var(--azul-600); font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+.dados-processados pre {
+  margin: .5rem 0 0;
+  padding: .75rem;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------- Rodapé ---------------- */
+
+.rodape { padding-block: 2rem; background: var(--azul-900); color: var(--branco); --foco: var(--coral-400); }
+.rodape p { margin: 0 0 .5rem; }
+.rodape a { color: var(--coral-400); }
+
+/* ---------------- Telas médias e grandes ---------------- */
+
+@media (min-width: 48em) {
+  .sobre__grade { grid-template-columns: 1fr 1.3fr; gap: 3rem; }
+}
+
+@media (min-width: 64em) {
+  .contato__grade { grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
+}
+
+/* ---------------- Movimento ---------------- */
+
+/* Rolagem suave só para quem não pediu movimento reduzido */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .botao, .filtro__botao { transition: background-color .15s ease, transform .15s ease; }
+  .vidro:hover { transform: scale(1.03); }
+
+  /* Entrada do topo: sobe e aparece, em sequência */
+  @keyframes subir-e-aparecer {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animar-entrada { animation: subir-e-aparecer .8s ease-out both; }
+  .animar-entrada--atraso-1 { animation-delay: .2s; }
+  .animar-entrada--atraso-2 { animation-delay: .4s; }
+}
